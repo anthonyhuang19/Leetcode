@@ -6,7 +6,8 @@ import json
 
 def parse_problem_info(filename):
     """Extract problem number, name, and difficulty from filename"""
-    match = re.match(r'(\d+)\s+(.*?)_(Easy|Medium|Hard)\.md', filename)
+    base_name = os.path.basename(filename)  # Get just the file name
+    match = re.match(r'(\d+)\s+(.*?)_(Easy|Medium|Hard)\.md', base_name)
     if match:
         return {
             'number': int(match.group(1)),
@@ -23,21 +24,24 @@ def count_solved_problems():
         'problems': [],
         'last_updated': datetime.now().strftime('%Y-%m-%d %H:%M:%S')
     }
-    
-    # Loop through all files in the current directory
-    for file in os.listdir('.'):
+
+    problem_dir = 'problems'
+
+    # Loop through all files in the problems/ directory
+    for file in os.listdir(problem_dir):
         if file.endswith('.md'):
-            problem_info = parse_problem_info(file)
+            filepath = os.path.join(problem_dir, file)
+            problem_info = parse_problem_info(filepath)
             if problem_info:
                 problem_info['platform'] = 'Local'
                 
-                # Replace spaces with %20 and generate GitHub URL for each problem
-                github_url = f"https://github.com/anthonyhuang19/Leetcode/blob/master/problems/{urllib.parse.quote(file)}"
+                # Generate GitHub URL for each problem
+                github_url = f"https://github.com/anthonyhuang19/Leetcode/blob/master/{urllib.parse.quote(filepath)}"
                 problem_info['path'] = github_url
                 stats['problems'].append(problem_info)
                 stats['by_difficulty'][problem_info['difficulty']] += 1
                 stats['total'] += 1
-    
+
     stats['problems'].sort(key=lambda x: x['number'])
     return stats
 
@@ -46,8 +50,8 @@ def generate_readme(stats):
     easy_pct = (stats['by_difficulty']['Easy'] / total) * 100 if total > 0 else 0
     medium_pct = (stats['by_difficulty']['Medium'] / total) * 100 if total > 0 else 0
     hard_pct = (stats['by_difficulty']['Hard'] / total) * 100 if total > 0 else 0
-    
-    # Create chart config dictionary for URL
+
+    # Chart configuration for QuickChart.io
     chart_config = {
         'type': 'doughnut',
         'data': {
@@ -62,11 +66,10 @@ def generate_readme(stats):
             }]
         }
     }
-    
-    # Convert dictionary to JSON and then URL-encode it
+
     chart_url = f"https://quickchart.io/chart?c={urllib.parse.quote(json.dumps(chart_config))}&width=300&height=300"
-    
-    # Template for the README
+
+    # README template
     template = """# 📚 Algorithmic Problem Solutions
 
 *"Pursuing elegant solutions to computational problems"*  
@@ -89,7 +92,7 @@ def generate_readme(stats):
 | #  | Problem Name | Difficulty | Solution |
 |----|--------------|------------|----------|
 """
-    # Format the template with dynamic data
+
     formatted_template = template.format(
         last_updated=stats['last_updated'],
         total=stats['total'],
@@ -101,18 +104,17 @@ def generate_readme(stats):
         hard_pct=hard_pct,
         platform_distribution='Local: {total}'.format(total=stats['total'])
     )
-    
-    # Add solved problems to the table
+
+    # Add last 10 problems
     for problem in stats['problems'][-10:]:
         difficulty_emoji = {
             'Easy': '🟢',
             'Medium': '🟡',
             'Hard': '🔴'
         }.get(problem['difficulty'], '')
-        
         formatted_template += f"| {problem['number']} | {problem['name']} | {difficulty_emoji} {problem['difficulty']} | [View]({problem['path']}) |\n"
-    
-    # Add chart visualization
+
+    # Add chart
     formatted_template += f"""
 ## 📈 Progress Visualization
 
@@ -121,8 +123,8 @@ def generate_readme(stats):
 *"The art of programming is the art of organizing complexity."*  
 *— Edsger W. Dijkstra*
 """
-    
-    # Write the generated template to README.md
+
+    # Write to README.md
     with open('README.md', 'w') as f:
         f.write(formatted_template)
 
