@@ -32,7 +32,7 @@ def count_solved_problems():
                 problem_info['platform'] = 'Local'
                 
                 # Replace spaces with %20 and generate GitHub URL for each problem
-                github_url = f"https://github.com/anthonyhuang19/Leetcode/blob/master/{urllib.parse.quote(file)}"
+                github_url = f"https://github.com/anthonyhuang19/Leetcode/blob/master/problems/{urllib.parse.quote(file)}"
                 problem_info['path'] = github_url
                 stats['problems'].append(problem_info)
                 stats['by_difficulty'][problem_info['difficulty']] += 1
