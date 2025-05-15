@@ -2,7 +2,7 @@
 
 ## 📝 Problem
 
-Giving an array `nums` and ```target```, this problem want to us to find a way or how many way to make element in array can be sum up that is same as target.
+Giving an array `nums` , this problem want us to think that the value of array can be divided by two subset with the same total, for example : array A and array B is subset of array nums, means that A + B = nums , but total total(A) == total(b).
 
 ### **Solution**:
 
@@ -15,38 +15,34 @@ Giving an array `nums` and ```target```, this problem want to us to find a way o
 ### **Example 1**:
 
 ```python
-Input: nums = [1,2,3], target = 4
-Output: 7
-Explanation:
-The possible combination ways are:
-(1, 1, 1, 1)
-(1, 1, 2)
-(1, 2, 1)
-(1, 3)
-(2, 1, 1)
-(2, 2)
-(3, 1)
-Note that different sequences are counted as different combinations.
+Input: nums = [1,5,11,5]
+Output: true
+Explanation: The array can be partitioned as [1, 5, 5] and [11].
 ```
 ### **Code** :
 
 ```python
 class Solution:
-    def combinationSum4(self, nums: List[int], target: int) -> int:
-        nums.sort()
-        memo ={0:1}
-        
-        def dfs(target):
-            if target in memo:
-                return memo[target]
-            res = 0 
-            for i in nums:
-                if i > target : 
-                    break 
-                res += dfs(target-i)
-            memo[target]= res
-            return memo[target]
-        return dfs(target)
+    def canPartition(self, nums: List[int]) -> bool:
+        total = sum(nums) 
+        target = total //2 
+        # Base case 
+        if total % 2 != 0:
+            return False
+        memo ={}
+
+        def dfs(i, target):
+            if target == 0:
+                return True
+            if (i,target) in memo:
+                return memo[(i,target)]
+            if i >= len(nums) or target < 0:
+                return False
+            # Skip + not skip
+            memo[(i,target)] = dfs(i+1,target) or dfs(i+1,target-nums[i])
+            return memo[(i,target)]
+        return dfs(0,target)
+    # Time complexity:O(N * target), Space Time:O(N * target)
 ```
 
 
