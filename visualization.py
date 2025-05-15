@@ -105,8 +105,8 @@ def generate_readme(stats):
         platform_distribution='Local: {total}'.format(total=stats['total'])
     )
 
-    # Add last 10 problems
-    for problem in stats['problems'][-10:]:
+    # Add all solved problems
+    for problem in stats['problems']:
         difficulty_emoji = {
             'Easy': '🟢',
             'Medium': '🟡',
