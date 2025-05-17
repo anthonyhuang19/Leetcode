@@ -1,19 +1,19 @@
 # 📚 Algorithmic Problem Solutions
 
 *"Pursuing elegant solutions to computational problems"*  
-*Last Updated: 2025-05-17 14:59:49*
+*Last Updated: 2025-05-17 16:43:13*
 
 ## 📊 Statistics Overview
 
 | Metric            | Count |
 |-------------------|-------|
-| Total Problems    | 29 |
-| Easy              | 3 (10.3%) |
-| Medium            | 25 (86.2%) |
-| Hard              | 1 (3.4%) |
+| Total Problems    | 30 |
+| Easy              | 3 (10.0%) |
+| Medium            | 26 (86.7%) |
+| Hard              | 1 (3.3%) |
 
 ### 🏆 Platform Distribution
-Local: 29
+Local: 30
 
 ## 🧩 Solved Problems Table
 
@@ -34,6 +34,7 @@ Local: 29
 | 230 | Kth Smallest Element in a BST | 🟡 Medium | [View](https://github.com/anthonyhuang19/Leetcode/blob/master/problems/230%20Kth%20Smallest%20Element%20in%20a%20BST_Medium.md) |
 | 235 | Lowest Common Ancestor of a Binary Search Tree | 🟡 Medium | [View](https://github.com/anthonyhuang19/Leetcode/blob/master/problems/235%20Lowest%20Common%20Ancestor%20of%20a%20Binary%20Search%20Tree_Medium.md) |
 | 279 | Perfect Squares | 🟡 Medium | [View](https://github.com/anthonyhuang19/Leetcode/blob/master/problems/279%20Perfect%20Squares_Medium.md) |
+| 297 | Serialize and Deserialize Binary Tree | 🟡 Medium | [View](https://github.com/anthonyhuang19/Leetcode/blob/master/problems/297%20Serialize%20and%20Deserialize%20Binary%20Tree_Medium.md) |
 | 300 | Longest Increasing Subsequence | 🟡 Medium | [View](https://github.com/anthonyhuang19/Leetcode/blob/master/problems/300%20Longest%20Increasing%20Subsequence_Medium.md) |
 | 322 | Coin Change | 🟡 Medium | [View](https://github.com/anthonyhuang19/Leetcode/blob/master/problems/322%20Coin%20Change_Medium.md) |
 | 337 | House Robber III | 🟡 Medium | [View](https://github.com/anthonyhuang19/Leetcode/blob/master/problems/337%20House%20Robber%20III_Medium.md) |
@@ -51,7 +52,7 @@ Local: 29
 
 ## 📈 Progress Visualization
 
-![Difficulty Distribution](https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22Easy%22%2C%20%22Medium%22%2C%20%22Hard%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B3%2C%2025%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234CAF50%22%2C%20%22%23FFC107%22%2C%20%22%23F44336%22%5D%7D%5D%7D%7D&width=300&height=300)
+![Difficulty Distribution](https://quickchart.io/chart?c=%7B%22type%22%3A%20%22doughnut%22%2C%20%22data%22%3A%20%7B%22labels%22%3A%20%5B%22Easy%22%2C%20%22Medium%22%2C%20%22Hard%22%5D%2C%20%22datasets%22%3A%20%5B%7B%22data%22%3A%20%5B3%2C%2026%2C%201%5D%2C%20%22backgroundColor%22%3A%20%5B%22%234CAF50%22%2C%20%22%23FFC107%22%2C%20%22%23F44336%22%5D%7D%5D%7D%7D&width=300&height=300)
 
 *"The art of programming is the art of organizing complexity."*  
 *— Edsger W. Dijkstra*

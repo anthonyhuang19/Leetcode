@@ -2,11 +2,11 @@
 
 ## 📝 Problem
 
-Given the `root` of a binary tree, return the level order traversal of its nodes' values. (i.e., from left to right, level by level).
+Given the `array`,we need to construct Quad Tree.
 
 ### **Solution**:
 
-- BFS
+- dfs
 
 ---
 
@@ -17,37 +17,55 @@ Given the `root` of a binary tree, return the level order traversal of its nodes
 **Input:**
 
 ```python
-Input: root = [3,9,20,null,null,15,7]
-Output: [[3],[9,20],[15,7]]
+Input: grid = [[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,1,1,1,1],[1,1,1,1,1,1,1,1],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0],[1,1,1,1,0,0,0,0]]
+Output: [[0,1],[1,1],[0,1],[1,1],[1,0],null,null,null,null,[1,0],[1,0],[1,1],[1,1]]
+Explanation: All values in the grid are not the same. We divide the grid into four sub-grids.
+The topLeft, bottomLeft and bottomRight each has the same value.
+The topRight have different values so we divide it into 4 sub-grids where each has the same value.
 ```
 
 ## **Code**
 
 ```python
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+"""
+# Definition for a QuadTree node.
+class Node:
+    def __init__(self, val, isLeaf, topLeft, topRight, bottomLeft, bottomRight):
+        self.val = val
+        self.isLeaf = isLeaf
+        self.topLeft = topLeft
+        self.topRight = topRight
+        self.bottomLeft = bottomLeft
+        self.bottomRight = bottomRight
+"""
+
+"""
+# Definition for a QuadTree node.
+class Node:
+    def __init__(self, val, isLeaf, topLeft, topRight, bottomLeft, bottomRight):
+        self.val = val
+        self.isLeaf = isLeaf
+        self.topLeft = topLeft
+        self.topRight = topRight
+        self.bottomLeft = bottomLeft
+        self.bottomRight = bottomRight
+"""
+
 class Solution:
-    def levelOrder(self, root: Optional[TreeNode]) -> List[List[int]]:
-        if not root :
-            return []
-        q = collections.deque([root])
-        ans = []
-        while q :
-            length = len(q)
-            temp = []
-            for i in range(length):
-                node = q.popleft()
-                temp.append(node.val)
-                if node.left :
-                    q.append(node.left)
-                if node.right :
-                    q.append(node.right)
-            ans.append(temp)
-        return ans
+    def construct(self, grid: List[List[int]]) -> 'Node':
+        def dfs(n,r,c):
+            if n == 1:
+                return Node(grid[r][c]==1,True)
 
+            mid = n //2
+            topleft = dfs(mid,r,c)
+            topright = dfs(mid,r,c+mid)
+            bottomleft = dfs(mid,r+mid,c)
+            bottomright= dfs(mid,r+mid,c+mid)
 
+            if (topleft.isLeaf and topright.isLeaf and bottomleft.isLeaf and bottomright.isLeaf and
+                topleft.val == topright.val == bottomleft.val == bottomright.val):
+                return Node(topleft.val,True)
+            return Node(False,False,topleft,topright,bottomleft,bottomright)
+        return dfs(len(grid),0,0)
 ```
